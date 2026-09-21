@@ -38,6 +38,5 @@ desktop.ini
 .idea/
 *.suo
 *.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Scripts
+PUSH_TO_GITHUB.bat
