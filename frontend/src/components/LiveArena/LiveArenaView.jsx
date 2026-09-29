@@ -35,6 +35,21 @@ export default function LiveArenaView({ onOpenAuth, onSelectPlayerForView }) {
   return (
     <div className="space-y-6 animate-fadeIn">
       
+      {/* Transfer Deadline Day Live Ticker */}
+      <div className="bg-gradient-to-r from-emerald-950 via-pitch-900 to-pitch-950 border border-emerald-500/40 rounded-xl px-4 py-2.5 flex items-center justify-between text-xs overflow-hidden shadow-lg">
+        <div className="flex items-center space-x-2 flex-shrink-0 text-amber-400 font-black uppercase tracking-wider text-[11px]">
+          <span className="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping" />
+          <span>⚽ TRANSFER DEADLINE DAY</span>
+          <span className="text-slate-600">|</span>
+        </div>
+        <div className="text-slate-300 font-medium truncate ml-3 text-[11px] sm:text-xs">
+          🚨 <strong className="text-amber-300">MATCHDAY SCOUTING:</strong> Bidding war intensifying! Clubs calculating valuations against Financial Fair Play limits.
+        </div>
+        <span className="hidden md:inline-block px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold uppercase tracking-wider flex-shrink-0 ml-2 animate-pulse">
+          WINDOW CLOSING ⏳
+        </span>
+      </div>
+
       {/* Live Announcement Banner */}
       {auctionState?.message && (
         <div className="bg-gradient-to-r from-pitch-900 via-pitch-850 to-pitch-900 border border-emerald-500/30 rounded-2xl p-3.5 flex items-center justify-between shadow-lg">

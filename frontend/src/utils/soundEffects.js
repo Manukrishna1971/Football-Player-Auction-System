@@ -110,33 +110,80 @@ class SoundManager {
     } catch (e) {}
   }
 
-  // Sold Celebration: Fanfare chord progression
+  // Official Referee Match Whistle: Dual-tone modulated trill (Fox 40 pea-less whistle)
+  playWhistleSound(isFinal = false) {
+    if (!this.enabled) return;
+    this.initContext();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      const bursts = isFinal ? [0, 0.28, 0.6] : [0, 0.22]; // Double or triple blast
+
+      bursts.forEach(offset => {
+        const t = now + offset;
+        const dur = isFinal && offset === 0.6 ? 0.45 : 0.16;
+
+        [2780, 3100].forEach(baseFreq => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          // Rapid 28Hz trill modulation
+          const lfo = this.ctx.createOscillator();
+          const lfoGain = this.ctx.createGain();
+          lfo.frequency.setValueAtTime(28, t);
+          lfoGain.gain.setValueAtTime(130, t);
+          lfo.connect(osc.frequency);
+          lfo.start(t);
+          lfo.stop(t + dur);
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(baseFreq, t);
+
+          gain.gain.setValueAtTime(0.01, t);
+          gain.gain.linearRampToValueAtTime(0.24, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start(t);
+          osc.stop(t + dur);
+        });
+      });
+    } catch (e) {}
+  }
+
+  // Sold Celebration: Fanfare chord progression + crowd cheer swell
   playSoldCelebration() {
     if (!this.enabled) return;
     this.initContext();
     if (!this.ctx) return;
 
     try {
+      this.playWhistleSound(true); // Final whistle for transfer seal!
+
       const chord = [523.25, 659.25, 783.99, 1046.50]; // C Major arpeggio
       chord.forEach((freq, i) => {
-        const now = this.ctx.currentTime + (i * 0.09);
+        const now = this.ctx.currentTime + 0.35 + (i * 0.09);
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
 
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, now);
 
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+        gain.gain.setValueAtTime(0.22, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
 
         osc.start(now);
-        osc.stop(now + 0.4);
+        osc.stop(now + 0.45);
       });
     } catch (e) {}
   }
 }
 
 export const soundManager = new SoundManager();
+

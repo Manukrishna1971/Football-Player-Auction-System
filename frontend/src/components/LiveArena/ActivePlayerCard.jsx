@@ -81,6 +81,17 @@ export default function ActivePlayerCard({ player, currentBid, currentBidder, st
         </div>
       </div>
 
+      {/* Romano-Style 'HERE WE GO!' Official Transfer Banner */}
+      {status === 'sold' && (
+        <div className="bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-slate-950 font-black text-center py-2 px-4 text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg animate-pulse border-y border-amber-300">
+          <span>🚨 HERE WE GO!</span>
+          <span className="opacity-60">•</span>
+          <span>CONFIRMED TRANSFER DEAL SEALED</span>
+          <span className="opacity-60">•</span>
+          <span>OFFICIAL CONTRACT SIGNED ✍️⚽</span>
+        </div>
+      )}
+
       <div className="p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
         
         {/* Left Column: FIFA Ultimate Card Portrait */}
@@ -143,6 +154,19 @@ export default function ActivePlayerCard({ player, currentBid, currentBidder, st
               </div>
 
             </div>
+          </div>
+
+          {/* Matchday Scouting Profile */}
+          <div className="flex items-center justify-center flex-wrap gap-1.5 mt-3 text-[10px] font-bold">
+            <span className="px-2 py-0.5 rounded bg-pitch-900 border border-pitch-800 text-emerald-400 flex items-center gap-1 shadow-sm">
+              👟 {player.preferredFoot || 'Right'} Foot
+            </span>
+            <span className="px-2 py-0.5 rounded bg-pitch-900 border border-pitch-800 text-amber-400 shadow-sm">
+              ⚡ Skills: ★★★★☆
+            </span>
+            <span className="px-2 py-0.5 rounded bg-pitch-900 border border-pitch-800 text-cyan-400 shadow-sm">
+              🔥 Form: 8.9 / 10
+            </span>
           </div>
         </div>
 
