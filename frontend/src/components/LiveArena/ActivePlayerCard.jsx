@@ -1,15 +1,25 @@
 import React from 'react';
 import { getPositionBadge, getRatingColor, formatMoney } from '../../utils/formatters';
 import { Sparkles, Award, Edit2, Hash } from 'lucide-react';
+import footballAvatar from '../../assets/football_avatar.jpg';
 
 export default function ActivePlayerCard({ player, currentBid, currentBidder, status, onEditPlayer }) {
   if (!player) {
     return (
-      <div className="glass-card rounded-2xl p-10 flex flex-col items-center justify-center text-center min-h-[420px] border border-dashed border-pitch-700">
-        <Award className="w-16 h-16 text-slate-600 mb-4 animate-pulse" />
-        <h3 className="text-xl font-bold text-slate-300">No Player Under the Hammer</h3>
-        <p className="text-sm text-slate-500 max-w-sm mt-1">
-          Queue a local tournament player to start bidding!
+      <div className="glass-card rounded-2xl p-8 flex flex-col items-center justify-center text-center min-h-[420px] border border-dashed border-pitch-700/80 shadow-2xl">
+        <div className="relative mb-4">
+          <img
+            src={footballAvatar}
+            alt="Matchday Spotlight"
+            className="w-28 h-28 rounded-full object-cover border-2 border-amber-400/80 shadow-neon-gold animate-pulse"
+          />
+          <span className="absolute -bottom-1 -right-1 bg-pitch-900 border border-amber-400 text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+            SCOUT ⚡
+          </span>
+        </div>
+        <h3 className="text-xl font-black text-amber-400 uppercase tracking-wider">Arena Warmup — Scouting Active</h3>
+        <p className="text-sm text-slate-400 max-w-sm mt-1">
+          Queue a superstar footballer to begin live bidding under the stadium lights!
         </p>
       </div>
     );
@@ -133,13 +143,15 @@ export default function ActivePlayerCard({ player, currentBid, currentBidder, st
                     className="w-32 h-32 rounded-full object-cover border-2 border-amber-500/30 shadow-lg"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500&auto=format&fit=crop&q=80';
+                      e.target.src = footballAvatar;
                     }}
                   />
                 ) : (
-                  <div className="w-32 h-32 rounded-full bg-pitch-800 border-2 border-pitch-700 flex items-center justify-center text-4xl">
-                    ⚽
-                  </div>
+                  <img
+                    src={footballAvatar}
+                    alt={player.name}
+                    className="w-32 h-32 rounded-full object-cover border-2 border-amber-500/50 shadow-neon-gold"
+                  />
                 )}
               </div>
 
